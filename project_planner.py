@@ -64,12 +64,18 @@ def open_project():
     filename = askopenfilename(title="Open Project", initialdir=".", filetypes=[("CSV Document", "*.csv")])
     tasks = read_tasks(filename)
     draw_chart(tasks, canvas)
+    filename_label.config(text=filename) # add filename label to chart
 
 # 3. drawing the chart
 root = tkinter.Tk()
 root.title("Project Planner")
-open_button = tkinter.Button(root, text="Open project...", command=open_project)
-open_button.pack(side="top")
+root.resizable(width=False, height=False) # prevents being able to resize window
+button_frame = tkinter.Frame(root, padx=5, pady=5) # sets Open Project button to top left 
+button_frame.pack(side="top", fill="x") # sets Open Project button to top left 
+open_button = tkinter.Button(root, text="Open project...", command=open_project) # (button_frame impacts open project button position)
+filename_label = tkinter.Label(button_frame) # add filename label to chart
+filename_label.pack(side="right") # add filename label to chart 
+open_button.pack(side="top") # puts open button to left, can replace left with top
 canvas = tkinter.Canvas(root, width=800, height=400, bg="white")
 canvas.pack(side="bottom")
 tkinter.mainloop()
